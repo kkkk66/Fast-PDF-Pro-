@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal PDF Lock Tool</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://unpkg.com/pdf-lib-plus-encrypt/dist/pdf-lib-plus-encrypt.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <i data-lucide="lock" class="header-icon"></i>
+      <h1>Universal PDF Lock Tool</h1>
+      <p>Secure your PDF files with advanced encryption standards</p>
+    </header>
+
+    <main class="grid-layout">
+      <!-- Left Column: Upload & Feedback -->
+      <div class="column">
+        <div class="card upload-card" id="upload-area">
+          <input type="file" id="file-input" accept="application/pdf" hidden>
+          <i data-lucide="upload-cloud" class="upload-icon"></i>
+          <h3>Upload PDF</h3>
+          <p>Drag & drop or click to browse</p>
+          <div id="file-info" class="hidden">
+            <i data-lucide="file-text"></i>
+            <span id="file-name"></span>
+            <span id="file-size"></span>
+          </div>
+        </div>
+
+        <div class="card feedback-card hidden" id="feedback-area">
+          <h3><i data-lucide="shield-check"></i> Security Applied</h3>
+          <div class="feedback-grid">
+            <div class="feedback-item">
+              <span class="label">Algorithm</span>
+              <span class="value" id="fb-algo">-</span>
+            </div>
+            <div class="feedback-item">
+              <span class="label">Revision (R)</span>
+              <span class="value" id="fb-rev">-</span>
+            </div>
+            <div class="feedback-item">
+              <span class="label">Key Length</span>
+              <span class="value" id="fb-key">-</span>
+            </div>
+            <div class="feedback-item full-width">
+              <span class="label">Permissions</span>
+              <span class="value" id="fb-perms">-</span>
+            </div>
+          </div>
+          <button id="download-btn" class="btn primary-btn full-width">
+            <i data-lucide="download"></i> Download Locked PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Settings -->
+      <div class="column">
+        <div class="card settings-card">
+          <h3>Encryption Settings</h3>
+          
+          <div class="form-group">
+            <label>Encryption Standard</label>
+            <select id="enc-type">
+              <option value="AES-256">AES-256 (Most Secure, PDF 2.0)</option>
+              <option value="AES-128">AES-128 (High Security)</option>
+              <option value="RC4-128">RC4 128-bit (Legacy Compatibility)</option>
+              <option value="RC4-40">RC4 40-bit (Oldest Compatibility)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>User Password (Required to open)</label>
+            <div class="input-wrapper">
+              <i data-lucide="key"></i>
+              <input type="password" id="user-pw" placeholder="Enter user password">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Confirm User Password</label>
+            <div class="input-wrapper">
+              <i data-lucide="key"></i>
+              <input type="password" id="user-pw-confirm" placeholder="Confirm user password">
+            </div>
+            <span class="error-text" id="pw-error">Passwords do not match</span>
+          </div>
+
+          <div class="form-group">
+            <label>Owner Password (Optional, controls permissions)</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock"></i>
+              <input type="password" id="owner-pw" placeholder="Enter owner password">
+            </div>
+          </div>
+
+          <div class="permissions-panel">
+            <h4>Document Permissions</h4>
+            <div class="perm-grid">
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-print" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Printing</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-copy" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Copying</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-modify" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Editing</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-fill" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Form Filling</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-annotate" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Annotations</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-access" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Accessibility</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="perm-assemble" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-text">Allow Assembly</span>
+              </label>
+            </div>
+          </div>
+
+          <button id="encrypt-btn" class="btn primary-btn full-width" disabled>
+            <i data-lucide="lock"></i> Encrypt & Lock PDF
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
+
